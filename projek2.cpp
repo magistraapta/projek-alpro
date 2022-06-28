@@ -1,9 +1,10 @@
 #include <iostream>
+
 using namespace std;
 
 void menu();
 
-struct paket {
+struct tiket {
     string nama;
     string asal;
     string tujuan;
@@ -130,6 +131,8 @@ void pesanTiket(int i){
 }
 
 void cekTiket(int i){
+    string *p;
+    p = &tkt[i].nama;
     int counter = 0;
     string enteredNumber;
    cout << "Masukkan nomor tiket anda: "; cin>> enteredNumber;
