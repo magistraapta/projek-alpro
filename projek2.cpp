@@ -117,8 +117,6 @@ void pesanTiket(int i){
 
     tkt[i].noTiket= to_string(j);
 
-    
-
     cout << "\nTiked berhasil di booking " << endl;
     cout << "Nomor tiket anda: " << tkt[i].noTiket << endl;
 
@@ -202,6 +200,123 @@ void cancelTiket(int i){
         }
 }
 
+void editTiket(int i){
+    string enteredNumber;
+    int counter = 0;
+    cout <<"\nMasukkan nomor tiket anda: "; cin >> enteredNumber;
+    for (int j = 0; j < i; j++)
+    {
+        if (tkt[j].noTiket == enteredNumber)
+        {
+            counter = 1;
+            cout << "\n\n------------------Your Ticket------------------";
+            cout << "\n-----------------------------------------------";
+            cout << "\n\t\t---Lombok Airlines---";
+            cout << "\n   Your Name : " << tkt[j].nama;
+            cout << "\n   From : " << tkt[j].asal;
+            cout << "\t\tTo : " << tkt[j].tujuan;
+            cout << "\n   Date : " << tkt[j].tanggal << "\t" << "Seat number : B" << tkt[j].noKursi; 
+            cout << "\n   Ticket Class : " << tkt[j].kelas;
+            cout << "\n   Ticket number : " << tkt[j].noTiket << "\tFare : " << tkt[j].biaya;
+
+            cout << "\n-----------------------------------------------\n";
+            cout << "-----------------------------------------------\n";
+
+            int asal, tujuan,kelas;
+
+            do
+            {
+                cout << "\nKota asal" << endl;
+                cout << "1. Jakarta" << endl;
+                cout << "2. Surabaya" << endl;
+                cout << "3. Lombok" << endl;
+                cout << "Pilih kota asal: "; cin >> asal;
+                switch (asal)
+                {
+                case 1:
+                    tkt[j].asal = "Jakarta";
+                    break;
+                case 2:
+                    tkt[j].asal = "Surabaya";
+                    break;
+                case 3:
+                    tkt[j].asal = "Lombok";
+                    break;
+                
+                default:
+                cout << "Input invalid";
+                    break;
+                }
+
+            } while (asal > 3);
+
+            do
+            {
+                cout << "\nKota tujuan" << endl;
+                cout << "1. New York" << endl;
+                cout << "2. Los Angeles" << endl;
+                cout << "3. Tokyo" << endl;
+                cout << "4. seoul" << endl;
+                cout << "Pilih kota tujuan: "; cin >> tujuan;
+                switch (tujuan)
+                {
+                case 1:
+                    tkt[j].tujuan = "New York";
+                    break;
+                case 2:
+                    tkt[j].tujuan = "Los Angeles";
+                    break;
+                case 3:
+                    tkt[j].tujuan = "Tokyo";
+                    break;
+                case 4:
+                    tkt[j].tujuan = "Seoul";
+                    break;
+                
+                default:
+                cout << "Input Invalid" << endl;
+                    break;
+                }
+            } while (tujuan > 4);
+
+            cout << "\nMasukkan nama anda: "; getline(cin >> ws, tkt[j].nama);
+            cout << "Tanggal Keberangkatan (dd-mm-yy): "; getline(cin >> ws, tkt[j].tanggal);
+
+            do
+            {
+                cout << "\nPilih kelas tiket" << endl;
+                cout << "1. Economy" << endl;
+                cout << "2. Business" << endl;
+                cout << ">> "; cin >> kelas;
+                switch (kelas)
+                {
+                case 1:
+                    tkt[j].kelas = "Economy";
+                    tipeKelas = "Economy";
+                    break;
+                case 2:
+                    tkt[j].kelas = "Business";
+                    tipeKelas = "Business";
+                    break;
+                
+                default:
+                cout << "Invalid Input";
+                    break;
+                }
+            } while (kelas > 2);
+            
+            if (tipeKelas == "Economy" )
+            {
+                tkt[j].biaya = "Rp. 680.000";
+                menu();
+            } else {
+                tkt[j].biaya = "Rp. 1.200.000";
+                menu();
+            }
+        }
+    }
+}
+
 void menu(){
     int pilih;
     int i;
@@ -212,6 +327,7 @@ void menu(){
         cout << "1. Pesan tiket " << endl;
         cout << "2. Cek tiket " << endl;
         cout << "3. Cancel tiket " << endl;
+        cout << "4. Edit tiket " << endl;
         cout << ">> ";cin >> pilih;
         switch (pilih)
         {
@@ -223,6 +339,9 @@ void menu(){
             break;
         case 3:
             cancelTiket(i);
+            break;
+        case 4:
+            editTiket(i);
             break;
         
         
