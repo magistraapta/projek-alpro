@@ -13,7 +13,6 @@ struct tiket {
     string noKursi;
     string noTiket;
     string biaya;
-    struct tike *next;
 }tkt[100];
 
 
