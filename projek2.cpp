@@ -13,6 +13,7 @@ struct tiket {
     string noKursi;
     string noTiket;
     string biaya;
+    struct tike *next;
 }tkt[100];
 
 
@@ -22,6 +23,7 @@ string tipeKelas;
 
 void pesanTiket(int i){
     int asal, tujuan,kelas;
+
     do
     {
         cout << "\nKota asal" << endl;
@@ -129,8 +131,6 @@ void pesanTiket(int i){
 }
 
 void cekTiket(int i){
-    string *p;
-    p = &tkt[i].nama;
     int counter = 0;
     string enteredNumber;
    cout << "Masukkan nomor tiket anda: "; cin>> enteredNumber;
@@ -170,22 +170,14 @@ void cekTiket(int i){
 
 void cancelTiket(int i){
     int counter = 0;
-    string enteredNumber;
-
+    string enteredNumber, *input;
+    input = &enteredNumber;
    cout << "Masukkan nomor tiket anda: "; cin>> enteredNumber;
    for (int j = 0; j <= i; j++)
    {
-        if (tkt[j].noTiket == enteredNumber) {
+        if (tkt[j].noTiket == *input) {
             counter = 1;
-            tkt[j].nama= " ";
             tkt[j].noTiket= " ";
-            tkt[j].tujuan= " ";
-            tkt[j].asal= " ";
-            tkt[j].biaya= " ";
-            tkt[j].noKursi= " ";
-            tkt[j].tanggal= " ";
-            tkt[j].kelas= " ";
-          
             break;
         }
    }
@@ -201,12 +193,13 @@ void cancelTiket(int i){
 }
 
 void editTiket(int i){
-    string enteredNumber;
+    string enteredNumber, *input;
+    input = &enteredNumber;
     int counter = 0;
     cout <<"\nMasukkan nomor tiket anda: "; cin >> enteredNumber;
     for (int j = 0; j < i; j++)
     {
-        if (tkt[j].noTiket == enteredNumber)
+        if (tkt[j].noTiket == *input)
         {
             counter = 1;
             cout << "\n\n------------------Your Ticket------------------";
@@ -313,12 +306,17 @@ void editTiket(int i){
                 tkt[j].biaya = "Rp. 1.200.000";
                 menu();
             }
+        }else if (tkt[j].noTiket == " ")
+        {
+            cout << "Tiket anda tidak ditemukan" << endl;
+            menu();
         }
     }
 }
 
 void menu(){
-    int pilih;
+    int pilih, *input;
+    input = &pilih;
     int i;
     do
     {
@@ -329,9 +327,10 @@ void menu(){
         cout << "3. Cancel tiket " << endl;
         cout << "4. Edit tiket " << endl;
         cout << ">> ";cin >> pilih;
-        switch (pilih)
+        switch (*input)
         {
         case 1:
+        system ("clear");
             pesanTiket(i);
             break;
         case 2:
@@ -343,12 +342,12 @@ void menu(){
         case 4:
             editTiket(i);
             break;
-        
-        
+
         default:
+        cout << "Input invalid" << endl;
             break;
         }
-    } while (pilih != 2);
+    } while (pilih > 4);
 }
 
 int main()
